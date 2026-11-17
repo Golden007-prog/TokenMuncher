@@ -2,6 +2,8 @@
 
 A Windows desktop monitor for AI coding plans. It shows how much of your **Claude Code, Cursor, Codex and GitHub Copilot** limits you have used, how fast you are burning tokens, and whether you will make it to the next reset. Everything sits in one terminal-style window, a small always-on-top widget and the tray.
 
+**Website:** [bartoszclapinski.github.io/TokenMuncher](https://bartoszclapinski.github.io/TokenMuncher/)
+
 ![Live view](docs/screenshots/live.png)
 
 <sub>Screenshots are taken in demo mode with made-up projects and numbers (`npm run screenshots`).</sub>

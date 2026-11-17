@@ -1,0 +1,143 @@
+/* The project page. Colours are the app's default skin (dark) and its paper
+   skin (light); fonts are the ones the app ships. */
+@font-face { font-family: 'Geist'; font-weight: 100 900; font-display: swap; src: url('fonts/Geist-latin.woff2') format('woff2'); }
+@font-face { font-family: 'Geist Mono'; font-weight: 100 900; font-display: swap; src: url('fonts/GeistMono-latin.woff2') format('woff2'); }
+@font-face { font-family: 'Geist Mono'; font-weight: 100 900; font-display: swap; src: url('fonts/GeistMono-symbols2.woff2') format('woff2'); unicode-range: U+2000-2001, U+2004-2008, U+200A, U+23B8-23BD, U+2500-259F; }
+
+:root {
+  --bg: #151311; --bar: #1e1c1a; --fg: oklch(0.88 0.006 80); --hi: oklch(0.95 0.006 80); --muted: oklch(0.66 0.006 70);
+  --border: oklch(0.35 0.006 60); --rule: oklch(0.31 0.006 60); --track: oklch(0.28 0.006 60); --hover: oklch(0.26 0.005 60);
+  --clay: oklch(0.72 0.14 45); --on-clay: #151311; --ok: oklch(0.78 0.1 150); --warn: oklch(0.8 0.13 85); --teal: oklch(0.72 0.12 190);
+  --shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme='dark']) {
+    --bg: #f6f2ea; --bar: #ebe5d8; --fg: oklch(0.3 0.01 60); --hi: oklch(0.18 0.01 60); --muted: oklch(0.45 0.01 60);
+    --border: oklch(0.78 0.015 70); --rule: oklch(0.83 0.015 70); --track: oklch(0.9 0.01 75); --hover: oklch(0.88 0.02 70);
+    --clay: oklch(0.52 0.17 35); --on-clay: #fffaf2; --ok: oklch(0.5 0.13 150); --warn: oklch(0.55 0.14 75); --teal: oklch(0.48 0.1 220);
+    --shadow: 0 24px 60px rgba(70, 50, 20, 0.18);
+    color-scheme: light;
+  }
+}
+:root[data-theme='light'] {
+  --bg: #f6f2ea; --bar: #ebe5d8; --fg: oklch(0.3 0.01 60); --hi: oklch(0.18 0.01 60); --muted: oklch(0.45 0.01 60);
+  --border: oklch(0.78 0.015 70); --rule: oklch(0.83 0.015 70); --track: oklch(0.9 0.01 75); --hover: oklch(0.88 0.02 70);
+  --clay: oklch(0.52 0.17 35); --on-clay: #fffaf2; --ok: oklch(0.5 0.13 150); --warn: oklch(0.55 0.14 75); --teal: oklch(0.48 0.1 220);
+  --shadow: 0 24px 60px rgba(70, 50, 20, 0.18);
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--fg); font-family: 'Geist', system-ui, sans-serif; font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+.mono, code, kbd { font-family: 'Geist Mono', ui-monospace, Consolas, monospace; }
+a { color: var(--clay); text-decoration: none; }
+a:hover { text-decoration: underline; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--clay); outline-offset: 3px; }
+img { max-width: 100%; height: auto; display: block; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+/* Top bar, like the app's title bar */
+.top { position: sticky; top: 0; z-index: 5; background: var(--bar); border-bottom: 1px solid var(--rule); }
+.top .wrap { display: flex; align-items: center; gap: 20px; height: 52px; }
+.brand { display: flex; align-items: center; gap: 10px; color: var(--hi); font-weight: 600; letter-spacing: -0.01em; }
+.brand:hover { text-decoration: none; }
+.brand svg { width: 26px; height: auto; }
+.top nav { margin-left: auto; display: flex; align-items: center; gap: 22px; font-family: 'Geist Mono', monospace; font-size: 13px; }
+.top nav a { color: var(--muted); }
+.top nav a:hover { color: var(--hi); text-decoration: none; }
+.toggle { font: inherit; font-family: 'Geist Mono', monospace; font-size: 13px; color: var(--muted); background: none; border: 0; padding: 0; cursor: pointer; white-space: nowrap; }
+.toggle:hover { color: var(--hi); }
+
+/* Hero */
+.hero { padding: 72px 0 40px; }
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 1fr) 132px; gap: 40px; align-items: center; }
+.hero h1 { margin: 0 0 18px; font-size: clamp(34px, 5.2vw, 56px); line-height: 1.08; letter-spacing: -0.03em; color: var(--hi); font-weight: 650; max-width: 16em; }
+.hero h1 em { font-style: normal; color: var(--clay); }
+.lead { margin: 0 0 30px; font-size: 19px; color: var(--muted); max-width: 40em; }
+.hero-critter svg { width: 132px; height: auto; }
+.cta { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: center; }
+.btn { display: inline-flex; align-items: baseline; gap: 10px; padding: 13px 22px; background: var(--clay); color: var(--on-clay); font-family: 'Geist Mono', monospace; font-weight: 600; font-size: 15px; border-radius: 4px; }
+.btn:hover { text-decoration: none; filter: brightness(1.08); }
+.btn small { font-weight: 400; font-size: 12px; opacity: 0.8; }
+.cta .alt { font-family: 'Geist Mono', monospace; font-size: 13px; color: var(--muted); }
+.cta .alt a { color: var(--fg); border-bottom: 1px dashed var(--border); }
+.cta .alt a:hover { color: var(--clay); text-decoration: none; }
+.facts { margin: 26px 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 6px 22px; font-family: 'Geist Mono', monospace; font-size: 13px; color: var(--muted); }
+.facts li::before { content: '✓ '; color: var(--ok); }
+
+/* A screenshot in a window frame */
+.shot { margin: 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; box-shadow: var(--shadow); background: var(--bar); }
+.shot img { width: 100%; }
+.shot figcaption { padding: 8px 14px; font-family: 'Geist Mono', monospace; font-size: 12px; color: var(--muted); border-top: 1px solid var(--rule); }
+.main-shot { padding-bottom: 28px; }
+
+/* Sections: a dashed rule with a label, as the app's panels have */
+section { padding: 56px 0; scroll-margin-top: 52px; }
+.label { display: flex; align-items: center; gap: 14px; margin: 0 0 14px; font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 400; color: var(--clay); text-transform: lowercase; }
+.label::after { content: ''; flex: 1; border-top: 1px dashed var(--rule); }
+h2 { margin: 0 0 12px; font-size: clamp(26px, 3.4vw, 36px); line-height: 1.15; letter-spacing: -0.02em; color: var(--hi); font-weight: 620; }
+.sub { margin: 0 0 32px; color: var(--muted); max-width: 44em; }
+
+.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.card { border: 1px solid var(--rule); border-radius: 6px; padding: 20px 20px 18px; background: var(--bar); }
+.card h3 { margin: 0 0 8px; font-size: 16px; color: var(--hi); font-weight: 600; }
+.card h3 .mono { color: var(--clay); font-weight: 400; margin-right: 8px; }
+.card p { margin: 0; font-size: 15px; color: var(--muted); }
+.meter { margin: 0 0 14px; font-family: 'Geist Mono', monospace; font-size: 13px; color: var(--muted); white-space: nowrap; overflow: hidden; }
+.meter b { font-weight: 400; letter-spacing: -1px; }
+.meter .ok { color: var(--ok); } .meter .warn { color: var(--warn); } .meter .clay { color: var(--clay); } .meter .teal { color: var(--teal); }
+.meter .rest { color: var(--track); }
+
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; align-items: center; }
+.split ul { margin: 0; padding: 0; list-style: none; }
+.split li { padding: 10px 0 10px 26px; position: relative; border-bottom: 1px dashed var(--rule); color: var(--muted); }
+.split li:last-child { border-bottom: 0; }
+.split li::before { content: '›'; position: absolute; left: 6px; color: var(--clay); font-family: 'Geist Mono', monospace; }
+.split li strong { color: var(--hi); font-weight: 600; }
+.minis { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 22px; }
+.minis img { border: 1px solid var(--border); border-radius: 4px; width: 236px; }
+
+/* Skins */
+.tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 18px; }
+.tabs button { font-family: 'Geist Mono', monospace; font-size: 13px; padding: 6px 12px; color: var(--muted); background: none; border: 1px solid var(--rule); border-radius: 4px; cursor: pointer; }
+.tabs button:hover { color: var(--hi); background: var(--hover); }
+.tabs button[aria-pressed='true'] { color: var(--on-clay); background: var(--clay); border-color: var(--clay); }
+#skin-shot { aspect-ratio: 1280 / 700; }
+
+/* Tools table */
+.tools { width: 100%; border-collapse: collapse; font-size: 15px; }
+.tools th, .tools td { text-align: left; padding: 12px 14px 12px 0; border-bottom: 1px dashed var(--rule); vertical-align: top; }
+.tools th { font-family: 'Geist Mono', monospace; font-size: 12px; font-weight: 400; color: var(--muted); }
+.tools td:first-child { color: var(--hi); font-weight: 600; white-space: nowrap; }
+.tools td { color: var(--muted); }
+.scroll { overflow-x: auto; }
+
+/* Install steps */
+.steps { margin: 0; padding: 0; list-style: none; counter-reset: s; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.steps li { counter-increment: s; border: 1px solid var(--rule); border-radius: 6px; padding: 20px; background: var(--bar); color: var(--muted); font-size: 15px; }
+.steps li::before { content: '[' counter(s) ']'; display: block; margin-bottom: 8px; font-family: 'Geist Mono', monospace; color: var(--clay); }
+.steps strong { color: var(--hi); }
+.note { margin: 22px 0 0; font-size: 14px; color: var(--muted); max-width: 52em; }
+
+footer { border-top: 1px solid var(--rule); padding: 28px 0 44px; font-family: 'Geist Mono', monospace; font-size: 13px; color: var(--muted); }
+footer .wrap { display: flex; flex-wrap: wrap; gap: 10px 26px; }
+footer p { margin: 0; flex-basis: 100%; }
+
+@media (max-width: 860px) {
+  .hero { padding-top: 44px; }
+  .hero .wrap { grid-template-columns: 1fr; }
+  .hero-critter { order: -1; }
+  .hero-critter svg { width: 84px; }
+  .grid, .steps { grid-template-columns: 1fr; }
+  .split { grid-template-columns: 1fr; gap: 24px; }
+  .top nav a.opt { display: none; }
+  section { padding: 40px 0; }
+}
+@media (max-width: 480px) {
+  .wrap { padding: 0 16px; }
+  .top nav { gap: 14px; }
+  .top nav a[href^="#"] { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
