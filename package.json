@@ -16,7 +16,7 @@
     "screenshots": "node scripts/screenshots.mjs"
   },
   "devDependencies": {
-    "electron": "^37.2.0",
+    "electron": "^42.11.16",
     "electron-builder": "^25.1.8",
     "esbuild": "^0.24.2",
     "react": "^18.3.1",
