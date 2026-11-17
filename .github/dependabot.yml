@@ -1,0 +1,18 @@
+# Dependabot: pull requests for security fixes in npm dependencies, and
+# monthly updates of the actions the workflows use.
+version: 2
+updates:
+  # Security fixes only: with the limit at 0 no version-update pull requests
+  # are opened, and security updates are not counted against it.
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 0
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    groups:
+      actions:
+        patterns: ['*']

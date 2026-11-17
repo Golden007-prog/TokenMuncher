@@ -46,6 +46,7 @@ The README has the [full list of switches and a code map](README.md#for-develope
 - **Screenshots from demo mode only** (`TM_DEMO=1`), never with real usage data.
 - **The README is updated** when behaviour, settings or files on disk change.
 - **No version bump and no release files.** The maintainer sets the version when releasing.
+- **Formatting follows the code around it:** two-space indent, LF line ends (`.editorconfig` sets this in most editors). There is no linter; please do not reformat code you are not changing.
 - Code, comments and commit messages are in English. Comments say what the code is for, not what it does line by line.
 
 ## Logins and the network
