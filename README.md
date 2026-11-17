@@ -14,6 +14,8 @@ A Windows desktop monitor for AI coding plans. It shows how much of your **Claud
 - **Stays out of the way:** tray icon colored by the busiest limit, notifications at the thresholds you pick, and a mini widget.
 - **Local first:** reads the usage data your tools already keep on this computer and talks only to those tools' own servers.
 
+> TokenMuncher is an independent project, not affiliated with or endorsed by Anthropic, OpenAI, Anysphere (Cursor) or GitHub. It uses unofficial endpoints that may change or stop working.
+
 ---
 
 ## Contents
