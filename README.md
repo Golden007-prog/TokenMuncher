@@ -36,6 +36,7 @@ A Windows desktop monitor for AI coding plans. It shows how much of your **Claud
 - [Files on disk](#files-on-disk)
 - [Troubleshooting](#troubleshooting) (and [reporting a problem](#reporting-a-problem))
 - [For developers](#for-developers)
+- [Contributing](#contributing)
 
 ---
 
@@ -253,7 +254,7 @@ Each source turns itself on only when its tool is installed and logged in.
 ### Reporting a problem
 
 1. Open *Settings → about* and click **`[ copy diagnostics ]`**. A report goes to the clipboard. Nothing is sent anywhere.
-2. Open an [issue](https://github.com/bartoszclapinski/TokenMuncher/issues/new), describe what you see, and paste the report. Add a screenshot if it helps.
+2. Open an [issue](https://github.com/bartoszclapinski/TokenMuncher/issues/new/choose), describe what you see, and paste the report. Add a screenshot if it helps.
 
 The report has the app, Electron and Windows versions, your settings, and for each tool: detected or not, plan, errors, limits, and counts of records, sessions, log files and lines read. For Codex it also shows which log lines the parser recognised and which types it skipped, which catches log format changes. It has no logins or tokens, no conversation text, no project names or commands, and your home folder shows as `~`. Read it before you paste it.
 
@@ -316,6 +317,10 @@ npm run icon            # regenerate the app icon and installer sidebar from the
 | `installer/installer.nsh`, `electron-builder.config.js` | installer wizard pages and build settings |
 | `scripts/` | installer builds with the CPU check, icon generator, screenshots |
 | `tests/` | unit tests |
+
+## Contributing
+
+Bug reports, fixes and features are welcome. [CONTRIBUTING.md](CONTRIBUTING.md) says how to report a problem, run the project and what a pull request needs. Security problems are reported privately: see [SECURITY.md](SECURITY.md).
 
 ## License
 
