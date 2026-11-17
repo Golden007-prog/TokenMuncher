@@ -1,0 +1,102 @@
+# Pushing a tag vX.Y.Z (on a commit that is on main and matches package.json)
+# builds both installers and creates a DRAFT release with them; the release
+# notes are written and the draft published by hand.
+# Run it by hand (Actions → release → Run workflow) for a dry run: it builds
+# and keeps the installers as run artifacts. A dry run never creates or changes
+# a release, whatever ref it runs on.
+#
+# Two jobs: `build` runs npm install scripts, tests and electron-builder with a
+# read-only token that isn't kept on disk; only `draft` can write releases, and
+# it runs no project code.
+name: release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+
+jobs:
+  build:
+    runs-on: windows-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0            # to check that the tag is on main
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Tag matches package.json and is on main
+        if: github.event_name == 'push'
+        shell: bash
+        run: |
+          v=$(node -p "require('./package.json').version")
+          if [ "v$v" != "${GITHUB_REF_NAME}" ]; then
+            echo "::error::tag ${GITHUB_REF_NAME} but package.json says $v"
+            exit 1
+          fi
+          if ! git merge-base --is-ancestor "$GITHUB_SHA" origin/main; then
+            echo "::error::tag ${GITHUB_REF_NAME} points at a commit that is not on main"
+            exit 1
+          fi
+
+      - run: npm ci
+      - run: npm test
+
+      # Both installers; the script checks that every packaged exe, dll and
+      # native module is built for its installer's CPU.
+      - run: npm run dist
+
+      - name: Checksums
+        shell: bash
+        run: |
+          cd release
+          for f in TokenMuncher-Setup-*.exe; do echo "$(sha256sum "$f" | cut -d' ' -f1)  $f"; done | tee SHA256SUMS.txt
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: installers
+          path: |
+            release/TokenMuncher-Setup-*.exe
+            release/SHA256SUMS.txt
+          retention-days: 14
+
+  draft:
+    needs: build
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: installers
+          path: release
+      - name: Draft release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          tag="${GITHUB_REF_NAME}"
+          files=(release/TokenMuncher-Setup-*.exe release/SHA256SUMS.txt)
+          draft=$(gh release view "$tag" --json isDraft --jq .isDraft 2>/dev/null || echo none)
+          if [ "$draft" = "false" ]; then
+            # never replace the files of a published release: the app's update check downloads them
+            echo "::error::release $tag is already published; its files are left alone"
+            exit 1
+          elif [ "$draft" = "true" ]; then
+            gh release upload "$tag" "${files[@]}" --clobber
+          else
+            notes="Built by GitHub Actions from ${GITHUB_SHA::7}. Release notes to be written before publishing."$'\n\n'"\`\`\`"$'\n'"$(cat release/SHA256SUMS.txt)"$'\n'"\`\`\`"
+            gh release create "$tag" "${files[@]}" --draft --verify-tag --title "TokenMuncher ${tag#v}" --notes "$notes"
+          fi

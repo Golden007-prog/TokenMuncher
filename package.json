@@ -1,0 +1,28 @@
+{
+  "name": "tokenmuncher",
+  "version": "0.18.2",
+  "description": "Windows desktop monitor of Claude usage limits and token burn",
+  "main": "src/main/main.js",
+  "private": true,
+  "license": "MIT",
+  "author": "Bartosz Clapinski",
+  "repository": "github:bartoszclapinski/TokenMuncher",
+  "scripts": {
+    "build": "node build.mjs",
+    "start": "node build.mjs && electron .",
+    "dist": "node scripts/dist.mjs",
+    "test": "node --test \"tests/**/*.test.js\"",
+    "icon": "node scripts/make-icon.mjs",
+    "screenshots": "node scripts/screenshots.mjs"
+  },
+  "devDependencies": {
+    "electron": "^37.2.0",
+    "electron-builder": "^25.1.8",
+    "esbuild": "^0.24.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.2.0"
+  }
+}
