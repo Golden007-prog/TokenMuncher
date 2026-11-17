@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TokenMuncher: see how much of your AI coding plan is left</title>
+<meta name="description" content="A free Windows desktop monitor for Claude Code, Cursor, Codex and GitHub Copilot limits: usage, burn rate and forecasts in one window, a tray icon and a mini widget.">
+<meta property="og:title" content="TokenMuncher">
+<meta property="og:description" content="See how much of your Claude Code, Cursor, Codex and Copilot limits is left, and whether you will make it to the next reset.">
+<meta property="og:image" content="https://bartoszclapinski.github.io/TokenMuncher/screenshots/live.png">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/png" href="icon.png">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top"><svg data-critter="calm" aria-hidden="true"></svg>TokenMuncher</a>
+    <nav aria-label="Page">
+      <a class="opt" href="#features">features</a>
+      <a class="opt" href="#skins">skins</a>
+      <a class="opt" href="#privacy">privacy</a>
+      <a href="#install">install</a>
+      <a href="https://github.com/bartoszclapinski/TokenMuncher">github</a>
+      <button class="toggle" id="theme-toggle" type="button" aria-label="Switch between light and dark">[ light ]</button>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <h1>See how much of your AI coding plan is <em>left</em>.</h1>
+        <p class="lead">TokenMuncher is a small Windows app that watches your Claude Code, Cursor, Codex and GitHub Copilot limits: how much you have used, how fast you are burning tokens, and whether you will make it to the next reset.</p>
+        <div class="cta">
+          <a class="btn" id="download" href="https://github.com/bartoszclapinski/TokenMuncher/releases/latest">download for Windows <small>latest release</small></a>
+          <span class="alt"><a id="download-arm" href="https://github.com/bartoszclapinski/TokenMuncher/releases/latest">ARM64 installer</a> · <a href="https://github.com/bartoszclapinski/TokenMuncher">source code</a></span>
+        </div>
+        <ul class="facts">
+          <li>free and open source (MIT)</li>
+          <li>no account, no telemetry</li>
+          <li>Windows 10 and 11</li>
+        </ul>
+      </div>
+      <div class="hero-critter"><svg data-critter="eat" role="img" aria-label="The TokenMuncher critter, eating tokens"></svg></div>
+    </div>
+  </div>
+
+  <div class="main-shot">
+    <div class="wrap">
+      <figure class="shot">
+        <img src="screenshots/live.png" width="1280" height="900" alt="The live view: limit bars for Claude, Cursor and Copilot, tokens per second, sessions and top projects">
+        <figcaption>the live view · screenshots show demo data with made-up projects and numbers</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <section id="features">
+    <div class="wrap">
+      <p class="label">features</p>
+      <h2>Everything about your limits, in one window</h2>
+      <p class="sub">It reads the usage data your tools already keep on this computer, so there is nothing to set up: install it, and the tools you are logged in to show up by themselves.</p>
+      <div class="grid">
+        <div class="card">
+          <p class="meter" aria-hidden="true">5h <b class="ok">████████████</b><b class="rest">████████</b> 62%</p>
+          <h3>Limits at a glance</h3>
+          <p>The 5-hour and weekly Claude windows, Cursor and Copilot monthly quotas, with decimals estimated between server updates.</p>
+        </div>
+        <div class="card">
+          <p class="meter" aria-hidden="true">7d <b class="warn">████████████████</b><b class="rest">████</b> runs out Fri</p>
+          <h3>Forecasts</h3>
+          <p>Whether a limit fits until its reset at the current pace, and at your usual pace for that time of the week.</p>
+        </div>
+        <div class="card">
+          <p class="meter" aria-hidden="true">tok/s <b class="clay">▁▂▃▅▇█▇▅▃▂▃▅▇▅▃</b> 4.1 k</p>
+          <h3>Where the tokens go</h3>
+          <p>Live tokens per second, sessions, models and projects, a per-day budget, and what each session cost at API prices.</p>
+        </div>
+        <div class="card">
+          <p class="meter" aria-hidden="true">week <b class="teal">▃▅▇▂▁▆█</b> +18% vs before</p>
+          <h3>History and week summary</h3>
+          <p>Past limit windows, daily totals, and a summary of each finished week compared with the one before.</p>
+        </div>
+        <div class="card">
+          <p class="meter" aria-hidden="true">tray <b class="ok">■</b> <b class="warn">■</b> <b class="clay">■</b> notify at 80%</p>
+          <h3>Stays out of the way</h3>
+          <p>A tray icon coloured by the busiest limit, notifications at the thresholds you pick, and a mini widget that stays on top.</p>
+        </div>
+        <div class="card">
+          <p class="meter" aria-hidden="true">[e] <b class="rest">▛▀▀▜</b> <b class="clay">▙▄▄▟</b> drag · resize · hide</p>
+          <h3>Your own layout</h3>
+          <p>Move, resize and hide panels until the window shows what you care about. Updates download in the background.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="widget">
+    <div class="wrap split">
+      <div>
+        <p class="label">mini widget</p>
+        <h2>Keep an eye on it while you work</h2>
+        <ul>
+          <li><strong>Mini widget:</strong> a small always-on-top window with your limits and the current burn rate.</li>
+          <li><strong>Tray icon:</strong> the critter changes colour as the busiest limit fills up, and eats while tokens flow.</li>
+          <li><strong>Notifications:</strong> at the thresholds you choose, at resets, and when a limit will not last until its reset.</li>
+        </ul>
+        <div class="minis">
+          <img src="screenshots/mini.png" width="340" height="177" alt="The mini widget in the default dark skin" loading="lazy">
+          <img src="screenshots/mini-paper.png" width="340" height="177" alt="The mini widget in the light paper skin" loading="lazy">
+        </div>
+      </div>
+      <figure class="shot">
+        <img src="screenshots/session.png" width="1280" height="1000" alt="Session details: tokens, cost, models and context of one coding session" loading="lazy">
+        <figcaption>session details</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="skins">
+    <div class="wrap">
+      <p class="label">skins</p>
+      <h2>26 skins, 9 pixel mascots</h2>
+      <p class="sub">Pick a look that matches your editor, or let the app follow Windows light and dark mode. Every mascot is original pixel art.</p>
+      <div class="tabs" role="group" aria-label="Skin">
+        <button type="button" data-skin="codex" aria-pressed="true">codex</button>
+        <button type="button" data-skin="cursor" aria-pressed="false">cursor</button>
+        <button type="button" data-skin="copilot" aria-pressed="false">copilot</button>
+        <button type="button" data-skin="paper" aria-pressed="false">paper</button>
+        <button type="button" data-skin="dracula" aria-pressed="false">dracula</button>
+        <button type="button" data-skin="tokyo-night" aria-pressed="false">tokyo night</button>
+        <button type="button" data-skin="intellij" aria-pressed="false">intellij</button>
+        <button type="button" data-skin="solarized-light" aria-pressed="false">solarized light</button>
+        <button type="button" data-skin="macos-dark" aria-pressed="false">macos dark</button>
+        <button type="button" data-skin="windows-light" aria-pressed="false">windows light</button>
+      </div>
+      <figure class="shot">
+        <img id="skin-shot" src="screenshots/theme-codex.png" width="1280" height="700" alt="TokenMuncher in the codex skin" loading="lazy">
+      </figure>
+    </div>
+  </section>
+
+  <section id="tools">
+    <div class="wrap">
+      <p class="label">supported tools</p>
+      <h2>What it can show for each tool</h2>
+      <p class="sub">Each source turns itself on only when its tool is installed and logged in.</p>
+      <div class="scroll">
+        <table class="tools">
+          <thead><tr><th>tool</th><th>limits</th><th>tokens and sessions</th></tr></thead>
+          <tbody>
+            <tr><td>Claude Code</td><td>5-hour and weekly windows</td><td>from the local session logs</td></tr>
+            <tr><td>Cursor</td><td>monthly quota</td><td>per-request events from your Cursor dashboard</td></tr>
+            <tr><td>Codex</td><td>from the local session logs</td><td>from the local session logs</td></tr>
+            <tr><td>GitHub Copilot</td><td>monthly quota</td><td>not available</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">Limits for Claude, Cursor and Copilot come from unofficial endpoints of those tools and can stop working when they change. Codex support was tested on a synthetic log only.</p>
+    </div>
+  </section>
+
+  <section id="privacy">
+    <div class="wrap split">
+      <div>
+        <p class="label">privacy</p>
+        <h2>Your usage data stays on your computer</h2>
+      </div>
+      <ul>
+        <li><strong>Logins are only read</strong> from each tool's own files and sent only to that tool's own server. They are never stored, logged or refreshed.</li>
+        <li><strong>No telemetry, no analytics.</strong> The only other request is the update check and download from GitHub.</li>
+        <li><strong>Open source:</strong> <a href="https://github.com/bartoszclapinski/TokenMuncher#privacy-what-is-read-and-sent-where">what is read and sent where</a> is documented, and you can read the code.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="install">
+    <div class="wrap">
+      <p class="label">install</p>
+      <h2>Up and running in a minute</h2>
+      <ol class="steps">
+        <li><strong>Download</strong> the installer from the <a href="https://github.com/bartoszclapinski/TokenMuncher/releases/latest">latest release</a>.</li>
+        <li><strong>Run it.</strong> It installs for your Windows user only, with no administrator rights.</li>
+        <li><strong>Look at the tray,</strong> next to the clock. Click the critter to show or hide the window.</li>
+      </ol>
+      <p class="note">The installer is not code-signed, so Windows SmartScreen may warn about an unknown publisher: choose <em>More info</em>, then <em>Run anyway</em>. Each release lists the SHA-256 of its files. The app updates itself from GitHub releases.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a href="https://github.com/bartoszclapinski/TokenMuncher">github</a>
+    <a href="https://github.com/bartoszclapinski/TokenMuncher/releases">releases</a>
+    <a href="https://github.com/bartoszclapinski/TokenMuncher/issues">report a problem</a>
+    <a href="https://github.com/bartoszclapinski/TokenMuncher/blob/main/LICENSE">MIT license</a>
+    <p>An independent project, not affiliated with Anthropic, Anysphere (Cursor), OpenAI or GitHub.</p>
+  </div>
+</footer>
+
+<script src="site.js"></script>
+</body>
+</html>
