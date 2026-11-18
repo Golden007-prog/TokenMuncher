@@ -305,6 +305,7 @@ function App() {
       <TitleBar win={win} />
       <div className="content">
         <Header snap={snap} prec={prec} now={now} />
+        {view === 'hist' && snap?.ready && <UsageExport />}
         {view === 'settings'
           ? <Settings s={settings} prec={prec} setPrec={setPrec} lupa={lupa} toggleLupa={toggleLupa} onEditLayout={v => { setView(v); setEditing(true); }} />
           : !snap || !snap.ready
@@ -334,6 +335,47 @@ function App() {
       </div>
     </div>
   );
+}
+
+function UsageExport() {
+  const [open, setOpen] = useState(false);
+  const [range, setRange] = useState('week');
+  const [format, setFormat] = useState('csv');
+  const [saving, setSaving] = useState(false);
+  const [status, setStatus] = useState('');
+
+  const save = async () => {
+    setSaving(true);
+    setStatus('');
+    try {
+      const result = await window.tm.exportUsage(range, format);
+      if (result === 'saved') setStatus('Usage exported');
+      else if (result === 'error') setStatus('Could not save the usage export');
+    } catch {
+      setStatus('Could not save the usage export');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  return <div className="usage-export" onKeyDown={event => event.stopPropagation()}>
+    <button type="button" aria-expanded={open} aria-controls="usage-export-options" onClick={() => setOpen(value => !value)}>
+      Export usage
+    </button>
+    <div id="usage-export-options" hidden={!open}>
+      <label>Range <select value={range} disabled={saving} onChange={event => setRange(event.target.value)}>
+        <option value="week">This week</option>
+        <option value="month">This month</option>
+        <option value="all">Everything kept</option>
+      </select></label>
+      <label>Format <select value={format} disabled={saving} onChange={event => setFormat(event.target.value)}>
+        <option value="csv">CSV</option>
+        <option value="json">JSON</option>
+      </select></label>
+      <button type="button" disabled={saving} onClick={save}>Save file…</button>
+      <span role="status">{status}</span>
+    </div>
+  </div>;
 }
 
 function TitleBar({ win }) {
