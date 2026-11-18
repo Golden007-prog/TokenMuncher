@@ -374,7 +374,9 @@ ipcMain.handle('history:export', async (event, range, format) => {
     if (canceled || !filePath) return 'cancelled';
     const now = Date.now();
     store.prepare(now);
-    await fs.promises.writeFile(filePath, formatUsage(usageRows(store.records, range, now), format), 'utf8');
+    const hidden = new Set(sources.filter(s => s.off).map(s => s.id));
+    const rows = usageRows(store.records, range, now, hidden);
+    await fs.promises.writeFile(filePath, formatUsage(rows, format), 'utf8');
     return 'saved';
   } catch {
     return 'error';

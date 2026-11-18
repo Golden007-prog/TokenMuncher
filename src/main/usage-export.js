@@ -6,18 +6,19 @@ function dateLabel(time) {
     .map(part => String(part).padStart(2, '0')).join('-');
 }
 
-function usageRows(records, range, now) {
+function usageRows(records, range, now, hidden = new Set()) {
   const since = range === 'week' ? startOfWeek(now) : range === 'month' ? startOfMonth(now) : -Infinity;
   const groups = new Map();
   for (const record of records) {
-    if (record.ts < since || record.ts > now) continue;
+    if (record.ts < since || record.ts > now || hidden.has(record.provider)) continue;
     const day = dateLabel(record.ts);
     const project = record.project || '';
+    const tool = record.provider || '';
     const model = record.model || '';
-    const key = JSON.stringify([day, project, model]);
+    const key = JSON.stringify([day, project, tool, model]);
     let group = groups.get(key);
     if (!group) {
-      group = { row: { day, project, model, input_tokens: 0, output_tokens: 0, cache_read_tokens: 0, cache_write_tokens: 0, api_equivalent_cost_usd: 0 }, sessions: new Set() };
+      group = { row: { day, project, tool, model, input_tokens: 0, output_tokens: 0, cache_read_tokens: 0, cache_write_tokens: 0, api_equivalent_cost_usd: 0 }, sessions: new Set() };
       groups.set(key, group);
     }
     const { row, sessions } = group;
@@ -29,12 +30,15 @@ function usageRows(records, range, now) {
     if (record.sid) sessions.add(record.sid);
   }
   return [...groups.values()]
-    .map(({ row, sessions }) => ({ ...row, sessions: sessions.size }))
-    .sort((a, b) => a.day.localeCompare(b.day) || a.project.localeCompare(b.project) || a.model.localeCompare(b.model));
+    .map(({ row, sessions }) => ({
+      ...row, api_equivalent_cost_usd: Number(row.api_equivalent_cost_usd.toFixed(6)), sessions: sessions.size
+    }))
+    .sort((a, b) => a.day.localeCompare(b.day) || a.project.localeCompare(b.project) ||
+      a.tool.localeCompare(b.tool) || a.model.localeCompare(b.model));
 }
 
 const COLUMNS = [
-  'day', 'project', 'model', 'input_tokens', 'output_tokens', 'cache_read_tokens',
+  'day', 'project', 'tool', 'model', 'input_tokens', 'output_tokens', 'cache_read_tokens',
   'cache_write_tokens', 'api_equivalent_cost_usd', 'sessions'
 ];
 
